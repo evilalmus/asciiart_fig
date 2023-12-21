@@ -31,6 +31,9 @@
       var selectElement = document.getElementById('fontList');
 
       // Populate the font list
+      figlet.defaults({
+        fontPath: "./fonts",
+      });
       fontList.forEach(function(font) {
         var option = document.createElement('option');
         option.value = font;
