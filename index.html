@@ -32,14 +32,21 @@
         // Specify the path to the fonts folder
         figlet.defaults({ fontPath: './fonts' });
 
-        // Use the callback provided by figlet.js
-        figlet.init({ callback: onFigletInit });
+        // Load fonts asynchronously
+        figlet.loadFont('Standard', function (err, font) {
+          if (err) {
+            console.error('Error loading font:', err);
+          } else {
+            // Font loaded successfully, now you can use figlet.fonts
+            populateFontList();
+          }
+        });
       } else {
         console.error('Figlet.js is not defined.');
       }
     };
 
-    function onFigletInit() {
+    function populateFontList() {
       // Get the list of available fonts
       var fontList = figlet.fonts;
 
