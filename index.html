@@ -32,26 +32,31 @@
         // Specify the path to the fonts folder
         figlet.defaults({ fontPath: './fonts' });
 
-        // Get the list of available fonts
-        var fontList = figlet.fonts;
-
-        // Check if fontList is an array before attempting to iterate
-        if (Array.isArray(fontList)) {
-          // Populate the font list
-          var selectElement = document.getElementById('fontList');
-          fontList.forEach(function (font) {
-            var option = document.createElement('option');
-            option.value = font;
-            option.textContent = font;
-            selectElement.appendChild(option);
-          });
-        } else {
-          console.error('The list of fonts is not an array.');
-        }
+        // Use the callback provided by figlet.js
+        figlet.init({ callback: onFigletInit });
       } else {
         console.error('Figlet.js is not defined.');
       }
     };
+
+    function onFigletInit() {
+      // Get the list of available fonts
+      var fontList = figlet.fonts;
+
+      // Check if fontList is an array before attempting to iterate
+      if (Array.isArray(fontList)) {
+        // Populate the font list
+        var selectElement = document.getElementById('fontList');
+        fontList.forEach(function (font) {
+          var option = document.createElement('option');
+          option.value = font;
+          option.textContent = font;
+          selectElement.appendChild(option);
+        });
+      } else {
+        console.error('The list of fonts is not an array.');
+      }
+    }
 
     function generateAscii() {
       var inputText = document.getElementById('inputText').value;
