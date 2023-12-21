@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ASCII Art Generator</title>
+  <script type="text/javascript" src="./lib/figlet.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .example { font-family: "Courier New", Monospace; white-space: pre; }
+    #output { margin-top: 20px; font-family: "Courier New", Monospace; white-space: pre; }
+  </style>
+</head>
+<body>
+  <h1>ASCII Art Generator</h1>
+
+  <label for="inputText">Enter Text:</label>
+  <input type="text" id="inputText" placeholder="Enter text">
+
+  <label for="fontList">Choose Font:</label>
+  <select id="fontList">
+    <!-- Font options will be populated by JavaScript -->
+  </select>
+
+  <button onclick="generateAscii()">Generate ASCII Art</button>
+
+  <h2>Preview:</h2>
+  <div id="output"></div>
+
+  <script>
+    window.onload = function() {
+      var fontList = figlet.fonts;
+      var selectElement = document.getElementById('fontList');
+
+      // Populate the font list
+      fontList.forEach(function(font) {
+        var option = document.createElement('option');
+        option.value = font;
+        option.textContent = font;
+        selectElement.appendChild(option);
+      });
+    };
+
+    // Function to generate ASCII art
+    function generateAscii() {
+      var inputText = document.getElementById('inputText').value;
+      var selectedFont = document.getElementById('fontList').value;
+
+      figlet.text(inputText, {font: selectedFont}, function(error, asciiArt) {
+        if (error) {
+          console.error('An error occurred: ', error);
+        } else {
+          document.getElementById('output').textContent = asciiArt;
+        }
+      });
+    };
+  </script>
+</body>
+</html>
