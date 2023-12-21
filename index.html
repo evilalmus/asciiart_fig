@@ -31,35 +31,37 @@
       if (typeof figlet !== 'undefined') {
         // Specify the path to the fonts folder
         figlet.defaults({ fontPath: './fonts' });
-        
-        // Get the list of available fonts
-        var fontList = figlet.fontsSync();
-        
-        // Populate the font list
-        var selectElement = document.getElementById('fontList');
-        fontList.forEach(function (font) {
-          var option = document.createElement('option');
-          option.value = font;
-          option.textContent = font;
-          selectElement.appendChild(option);
-        });
-      } else {
-        console.error('Figlet.js is not defined.');
-      }
-    };
-    // Function to generate ASCII art
-    function generateAscii() {
-      var inputText = document.getElementById('inputText').value;
-      var selectedFont = document.getElementById('fontList').value;
 
-      figlet.text(inputText, {font: selectedFont}, function(error, asciiArt) {
-        if (error) {
-          console.error('An error occurred: ', error);
-        } else {
-          document.getElementById('output').textContent = asciiArt;
-        }
+        // Get the list of available fonts
+        var fontList = figlet.fonts;
+
+      // Populate the font list
+      var selectElement = document.getElementById('fontList');
+      fontList.forEach(function (font) {
+        var option = document.createElement('option');
+        option.value = font;
+        option.textContent = font;
+        selectElement.appendChild(option);
       });
-    };
+    } else {
+      console.error('Figlet.js is not defined.');
+    }
+  };
+
+  function generateAscii() {
+    var inputText = document.getElementById('inputText').value;
+    var selectedFont = document.getElementById('fontList').value;
+
+    figlet.text(inputText, { font: selectedFont }, function (error, asciiArt) {
+      var outputElement = document.getElementById('output');
+      if (error) {
+        console.error('An error occurred: ', error);
+        outputElement.textContent = 'Error generating ASCII art. Please try again.';
+      } else {
+        outputElement.textContent = asciiArt;
+      }
+    });
+  };
   </script>
 </body>
 </html>
