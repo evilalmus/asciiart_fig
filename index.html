@@ -26,22 +26,27 @@
   <div id="output"></div>
 
   <script>
-    window.onload = function() {
-      var fontList = figlet.fonts;
-      var selectElement = document.getElementById('fontList');
-
-      // Populate the font list
-      figlet.defaults({
-        fontPath: "./fonts",
-      });
-      fontList.forEach(function(font) {
-        var option = document.createElement('option');
-        option.value = font;
-        option.textContent = font;
-        selectElement.appendChild(option);
-      });
+    window.onload = function () {
+      // Assuming that figlet is a global variable created by figlet.js
+      if (typeof figlet !== 'undefined') {
+        // Specify the path to the fonts folder
+        figlet.defaults({ fontPath: './fonts' });
+        
+        // Get the list of available fonts
+        var fontList = figlet.fontsSync();
+        
+        // Populate the font list
+        var selectElement = document.getElementById('fontList');
+        fontList.forEach(function (font) {
+          var option = document.createElement('option');
+          option.value = font;
+          option.textContent = font;
+          selectElement.appendChild(option);
+        });
+      } else {
+        console.error('Figlet.js is not defined.');
+      }
     };
-
     // Function to generate ASCII art
     function generateAscii() {
       var inputText = document.getElementById('inputText').value;
