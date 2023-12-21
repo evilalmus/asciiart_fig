@@ -2,7 +2,7 @@
 <html>
 <head>
   <title>ASCII Art Generator</title>
-  <script type="text/javascript" src="./lib/figlet.js"></script>
+  <script type="text/javascript" src="https://evilalmus.github.io/asciiart_fig/lib/figlet.js"></script>
   <style>
     body { font-family: Arial, sans-serif; }
     .example { font-family: "Courier New", Monospace; white-space: pre; }
@@ -46,27 +46,27 @@
             selectElement.appendChild(option);
           });
         } else {
-          console.error('Figlet.js is not defined.');
+          console.error('The list of fonts is not an array.');
         }
       } else {
         console.error('Figlet.js is not defined.');
       }
-  };
+    };
 
-  function generateAscii() {
-    var inputText = document.getElementById('inputText').value;
-    var selectedFont = document.getElementById('fontList').value;
+    function generateAscii() {
+      var inputText = document.getElementById('inputText').value;
+      var selectedFont = document.getElementById('fontList').value;
 
-    figlet.text(inputText, { font: selectedFont }, function (error, asciiArt) {
-      var outputElement = document.getElementById('output');
-      if (error) {
-        console.error('An error occurred: ', error);
-        outputElement.textContent = 'Error generating ASCII art. Please try again.';
-      } else {
-        outputElement.textContent = asciiArt;
-      }
-    });
-  };
+      figlet.text(inputText, { font: selectedFont }, function (error, asciiArt) {
+        var outputElement = document.getElementById('output');
+        if (error) {
+          console.error('An error occurred: ', error);
+          outputElement.textContent = 'Error generating ASCII art. Please try again.';
+        } else {
+          outputElement.textContent = asciiArt;
+        }
+      });
+    }
   </script>
 </body>
 </html>
