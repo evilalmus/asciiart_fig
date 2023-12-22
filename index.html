@@ -17,7 +17,10 @@
 
   <label for="fontList">Choose Font:</label>
   <select id="fontList">
-    <!-- Font options will be populated by JavaScript -->
+    <option value="Standard">Standard</option>
+    <option value="Arrows">Arrows</option>
+    <option value="Bell">Bell</option>
+    <!-- Add more font options as needed -->
   </select>
 
   <button onclick="generateAscii()">Generate ASCII Art</button>
@@ -26,45 +29,6 @@
   <div id="output"></div>
 
   <script>
-    window.onload = function () {
-      // Assuming that figlet is a global variable created by figlet.js
-      if (typeof figlet !== 'undefined') {
-        // Specify the path to the fonts folder
-        figlet.defaults({ fontPath: './fonts' });
-
-        // Load fonts asynchronously
-        figlet.loadFont('Standard', function (err, font) {
-          if (err) {
-            console.error('Error loading font:', err);
-          } else {
-            // Font loaded successfully, now you can use figlet.fonts
-            populateFontList();
-          }
-        });
-      } else {
-        console.error('Figlet.js is not defined.');
-      }
-    };
-
-    function populateFontList() {
-      // Get the list of available fonts
-      var fontList = figlet.fonts;
-
-      // Check if fontList is an array before attempting to iterate
-      if (Array.isArray(fontList)) {
-        // Populate the font list
-        var selectElement = document.getElementById('fontList');
-        fontList.forEach(function (font) {
-          var option = document.createElement('option');
-          option.value = font;
-          option.textContent = font;
-          selectElement.appendChild(option);
-        });
-      } else {
-        console.error('The list of fonts is not an array.');
-      }
-    }
-
     function generateAscii() {
       var inputText = document.getElementById('inputText').value;
       var selectedFont = document.getElementById('fontList').value;
